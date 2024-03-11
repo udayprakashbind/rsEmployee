@@ -27,7 +27,7 @@ namespace rsEmployee.Models
             cmd.Parameters.AddWithValue("@Id", obj.id);
             if (obj.id != null && obj.id != "")
             {
-                cmd.Parameters.AddWithValue("@Action", "updateemployee");
+                cmd.Parameters.AddWithValue("@Action", "updateEmp");
             }
             else
             {
@@ -75,6 +75,35 @@ namespace rsEmployee.Models
             }
             sdr.Close();
             con.Close() ;
+            return emplist;
+        }
+        public List<rs_employee> GetEmployeeList(string filterdate)
+        {
+            List<rs_employee> emplist = new List<rs_employee>();
+            SqlCommand cmd = new SqlCommand("sp_empmanagement", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@dob", filterdate);
+            cmd.Parameters.AddWithValue("@Action", "selectemplistbydob");
+            con.Open();
+            SqlDataReader sdr = cmd.ExecuteReader();
+            rs_employee emp = new rs_employee();
+            if (sdr.HasRows)
+            {
+                while (sdr.Read())
+                {
+                    emp = new rs_employee();
+                    emp.id = sdr["id"].ToString();
+                    emp.name = sdr["Name"].ToString();
+                    emp.department = sdr["department"].ToString();
+                    emp.mobile = sdr["mobile"].ToString();
+                    emp.address = sdr["address"].ToString();
+                    emp.dob = sdr["dob"].ToString();
+                    emp.gender = sdr["gender"].ToString();
+                    emplist.Add(emp);
+                }
+            }
+            sdr.Close();
+            con.Close();
             return emplist;
         }
         public rs_employee GetEmployeebyId(string id)

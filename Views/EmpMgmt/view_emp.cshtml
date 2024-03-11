@@ -1,0 +1,175 @@
+﻿@model IEnumerable<rsEmployee.Models.rs_employee>
+
+@{
+    ViewBag.Title = "view_emp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> view all employee list</h2>
+
+
+<section>
+    <div class="row" id="datefilterform">
+        <div class="col-md-6">
+            <input type="date" id="searchdate" name="searchdate" />
+        </div>
+        <div class="col-md-4">
+            <input type="submit" class="btn btn-success" id="btn-search" />
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <table id="tblemp">
+                <tr>
+                    <th>SrNo</th>
+                    <th>Name</th>
+                    <th>Dept</th>
+                    <th>dob</th>
+                    <th>mob</th>
+                    <th>gender</th>
+                    <th>address</th>
+                    <th>Active</th>
+                    <th>Action</th>
+                </tr>
+                <tbody>
+
+                    @{
+                        int i = 1;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.name</td>
+                                <td>@item.department</td>
+                                <td>@item.dob</td>
+                                <td>@item.mobile</td>
+                                <td>@item.gender</td>
+                                <td>@item.address</td>
+                                <td>@item.isActive</td>
+                                <td><a href="/EmpMgmt/CreatEmp?id=@item.id">Edit</a>|<a href="/EmpMgmt/DeleteEmp?id=@item.id">Delete</a></td>
+                            </tr>
+
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</section>
+@*<script>
+    <link src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" />
+</script>*@
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>*@
+
+<script>
+    $(document).ready(function () {
+        $('#btn-search').click(function () {
+           // alert("click me");
+           // var a = $(this).val();
+          //  alert("a" + a);
+            var searchdate = $('#searchdate').val();
+            //var b = $('#datefilterfomr #searchdate').val();
+            $.ajax({
+                url: '/EmpMgmt/filterdataBydob?filterdate=' + searchdate,
+                type: "GET",             
+                success: function (data) {
+                   // alert(JSON.stringfy(data));
+                    $('#tblemp tbody').empty();
+                    $.each(data, function (index, item) {
+                        var rowHTML = '<tr>' +
+                            '<td>' + item.name + '</td>' +
+                            '<td>' + item.department + '</td>' +
+                            '<td>' + item.dob + '</td>' +
+                            '<td>' + item.mobile + '</td>' +
+                            '<td>' + item.gender + '</td>' +
+                            '<td>' + item.address + '</td>' +
+                            '<td>' + item.isActive + '</td>' +
+                            // Add more columns as needed
+                            '</tr>';
+
+                        // Append the HTML row to the table body
+                        $('#tblemp tbody').append(rowHTML);
+                    });
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+           // alert(searchdate);
+        })
+    })
+</script>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dept_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dob)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mobile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isActive)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dept_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.department)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mobile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isActive)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "CreatEmp", new { id=item.id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                @Html.ActionLink("Delete", "DeleteEmp", new { id=item.id })
+            </td>
+        </tr>
+    }
+
+    </table>*@

@@ -120,7 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\EmployeeManagementController.cs" />
+    <Compile Include="Controllers\EmpMgmtController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -148,6 +148,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\custom.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -182,9 +183,9 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\EmployeeManagement\addDepartment.cshtml" />
-    <Content Include="Views\EmployeeManagement\CreatEmp.cshtml" />
-    <Content Include="Views\EmployeeManagement\view_emp.cshtml" />
+    <Content Include="Views\EmpMgmt\addDepartment.cshtml" />
+    <Content Include="Views\EmpMgmt\CreatEmp.cshtml" />
+    <Content Include="Views\EmpMgmt\view_emp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

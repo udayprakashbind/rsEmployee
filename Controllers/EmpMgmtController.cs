@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace rsEmployee.Controllers
 {
-    public class EmployeeManagementController : Controller
+    public class EmpMgmtController : Controller
     {
         // GET: EmployeeManagement
         DataServices db= new DataServices();
@@ -62,14 +62,35 @@ namespace rsEmployee.Controllers
             return RedirectToAction("CreatEmp");
         }
 
-        public ActionResult view_emp()
+        public ActionResult view_emp(string filterdate)
         {
             List<rs_employee> empList = new List<rs_employee>();
-            empList = db.GetEmployeeList();
+            if (filterdate != null)
+            {
+                empList = db.GetEmployeeList(filterdate);
+            }
+            else
+            {
+                empList = db.GetEmployeeList();
+
+            }
             return View(empList);
         }
 
+        public ActionResult filterdataBydob(string filterdate)
+        {
+            List<rs_employee> empList = new List<rs_employee>();
+            if (filterdate != null)
+            {
+                empList = db.GetEmployeeList(filterdate);
+            }
+            else
+            {
+                empList = db.GetEmployeeList();
 
+            }
+            return Json(empList,JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult DeleteEmp(string id)
         {
